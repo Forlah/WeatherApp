@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WheatherApp</string>
+    <string name="app_name">WeatherApp</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -14,4 +14,12 @@
     <string name="nav_title_today">Today</string>
     <string name="nav_title_weekly">Weekly</string>
     <string name="nav_title_share">Share</string>
+    <string name="current_temp">%1d<sup>℃</sup> </string>
+    <string name="item_temp">50&#xb0;C</string>
+    <string name="item_temp_format">%1s&#xb0;C</string>
+    <string name="wind_speed_format">%1d km/h</string>
+    <string name="humidity_format">%1d%%</string>
+    <string name="week_day_temp_range_format">%1d&#xb0;/%2d&#xb0;</string>
+    <string name="week_day_weather_desc_format">%1s; %2s</string>
+
 </resources>

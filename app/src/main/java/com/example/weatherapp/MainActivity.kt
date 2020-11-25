@@ -1,22 +1,34 @@
-package com.example.wheatherapp
+package com.example.weatherapp
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.example.weatherapp.dagger.ViewModelFactory
+import com.example.weatherapp.tabs.ShareWeatherFragment
+import com.example.weatherapp.tabs.TodayWeatherFragment
+import com.example.weatherapp.tabs.WeeklyWeatherFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    lateinit var viewModelFactory: ViewModelFactory
+
     lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AndroidInjection.inject(this)
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
         val drawer_layout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -29,22 +41,38 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         supportActionBar?.setHomeAsUpIndicator(R.drawable.nav_menu_white)
 
+        // load this fragment on launch
+        loadFragment(TodayWeatherFragment())
+
         bottomNavigation.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.navigation_today_weather -> {
-
+                    loadFragment(TodayWeatherFragment())
                 }
 
                 R.id.navigation_weekly_weather -> {
-
+                    loadFragment(WeeklyWeatherFragment())
                 }
 
                 R.id.navigation_share_weather -> {
-
+                    loadFragment(ShareWeatherFragment())
                 }
             }
             true
         }
+    }
+
+    private fun loadFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().apply {
+            this.replace(R.id.frame_container, fragment)
+            this.addToBackStack(null)
+            this.commit()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,5 +80,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu)
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
 }

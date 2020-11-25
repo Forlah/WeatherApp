@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/weekly_item_avatar"
+        android:layout_width="35dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/stormy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/week_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/weekly_item_avatar"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/weekly_item_avatar"
+        app:layout_constraintStart_toEndOf="@+id/weekly_item_avatar"
+        app:layout_constraintTop_toTopOf="@+id/weekly_item_avatar"
+        tools:text="Sat" />
+
+    <TextView
+        android:id="@+id/week_day_temp_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        tools:text="24/27"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/weekly_item_avatar"
+        app:layout_constraintStart_toEndOf="@+id/week_day"
+        app:layout_constraintTop_toTopOf="@+id/weekly_item_avatar" />
+
+    <TextView
+        android:id="@+id/week_day_weather_desc"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:lines="1"
+        app:layout_constraintBottom_toBottomOf="@+id/week_day_temp_range"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/week_day_temp_range"
+        app:layout_constraintTop_toTopOf="@+id/week_day_temp_range"
+        tools:text="Mostly cloudy with a thunderstorm" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
